@@ -1,14 +1,6 @@
 const peer = new Peer();
 let mediaStream = null;
 
-async function getMediaDevices()
-{
-	const mediaDevices = await navigator.mediaDevices.enumerateDevices();
-
-	console.log(mediaDevices);
-}
-getMediaDevices();
-
 peer.on("open", peerId =>
 {
 	console.log(peerId);
@@ -72,8 +64,9 @@ peer.on("call", call =>
 	const callBox = document.createElement("div");
 	callBox.classList.add("incomingCall");
 	const pickUpBtn = document.createElement("button");
+	const rejectBtn = document.createElement("button");
 
-	callBox.append(`New call from ${ call.peer }!`, document.createElement("br"), pickUpBtn);
+	callBox.append(`New call from ${ call.peer }!`, document.createElement("br"), pickUpBtn, rejectBtn);
 	pickUpBtn.append("Answer");
 	pickUpBtn.addEventListener("click", async () =>
 	{
@@ -83,6 +76,16 @@ peer.on("call", call =>
 
 		mediaStream = await getLocalMediaStream();
 		call.answer(mediaStream);
+	});
+
+	rejectBtn.append("Reject");
+	rejectBtn.addEventListener("click", async () =>
+	{
+		ringtoneAudioEl.pause();
+		ringtoneAudioEl.currentTime = 0;
+		callBox.remove();
+
+		call.close();
 	});
 
 	ringtoneAudioEl.play();
