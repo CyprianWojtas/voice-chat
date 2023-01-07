@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Video call</title>
+	<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<div class="peerId">
+		Peer ID:
+		<span class="id"></span>
+	</div>
+
+	<div>
+		<label>
+			Connection ID:
+			<input type="text" class="connectionId">
+		</label>
+		<button class="connect">Connect!</button>
+	</div>
+
+	<div class="video">
+		<video class="remoteStream" autoplay></video>
+		<video class="localStream" autoplay muted></video>
+	</div>
+
+	<audio src="ringtone.mp3" class="ringtoneAudio"></audio>
+	
+
+	<script src="main.js"></script>
+</body>
+</html>
